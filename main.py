@@ -1,6 +1,7 @@
 import modelo
 import os
 from tensorflow import keras
+import numpy as np
 
 # CREAR EL ENTORNO VIRTUAL (si o si esta version)
 # python -3.11 -m venv .venv
@@ -25,7 +26,7 @@ def cargar_modelo(ruta=RUTA_MODELO):
 
 
 def prediccion(modelo):
-    resultado = modelo.predict(100)
+    resultado = modelo.predict(np.array([100.0])) 
     print(f'La temperatura {100.0}°C es igual a {resultado}°F')
 
 
@@ -36,4 +37,6 @@ if __name__ == "__main__":
         print("🚀 No hay modelo guardado. Entrenando...")
         modelo_entrenado, historial = modelo.entrenar_modelo()
         guardar_modelo(modelo_entrenado)
+    else:
+        prediccion(modelo_entrenado)
 
